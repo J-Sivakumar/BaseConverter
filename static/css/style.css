@@ -7,12 +7,12 @@ form
   background-color: azure;
   margin-left:auto;
   margin-right:auto;
-  color: darkgreen;
+  color: black;
 } 
 table
 {
   width: 100%;
-
+  text-align: justify;
 }
 td,th{
   width: 50%;
@@ -46,7 +46,7 @@ input[type=submit], input[type=reset] , button
   width: 20%;
   height: 15%;
   font-size: 2vw;
-  color:lightseagreen;
+  color:rgb(245, 36, 13);
   padding: 5px;
   background-color: rgb(205, 249, 140);
 }
@@ -63,4 +63,17 @@ input[type=submit]:hover , input[type=reset]:hover , button:hover
 {
     background-color: rgb(255, 202, 165);
     color: darkviolet;
+}
+
+#note
+{
+  color: rgb(6, 85, 160);
+  text-align:center;
+  padding-left:50px;
+  font-size: 0.8em;
+  list-style-position: inside;
+}
+.special
+{
+  text-align: center;
 }
