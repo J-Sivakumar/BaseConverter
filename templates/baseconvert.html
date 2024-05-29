@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <title>Base Converter</title>
+
+    <script type="text/javascript">
+        function swap()
+        {
+            var src1 = document.form1.src;
+            var dest1 = document.form1.dest;
+            if(src1.value == 'default' || dest1.value == 'default')
+            {
+                alert('Could not Swap (From | To | Both values may be missing)')
+            }
+            else
+            {
+                var temp = src1.value;
+                src1.value = dest1.value;
+                dest1.value = temp;
+            }
+            return false;
+        }
+        function reset1()
+        {
+            var number = document.form1.num;
+            var src1 = document.form1.src;
+            var dest1 = document.form1.dest;
+            if(number.value != '')
+                number.value = '';
+            if(src1.value != 'default')
+                src1.value = 'default';
+            if(dest1.value != 'default')
+                dest1.value = 'default';
+            return false;
+        }
+
+        function validate()
+        {
+            var number = document.form1.num;
+            var src1 = document.form1.src;
+            var dest1 = document.form1.dest;
+            if(valid_number(number))
+            {
+                if(valid_src_base(src1))
+                {
+                    if(valid_dest_base(dest1))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        function valid_number(num)
+        {
+            if(num.value.match(/^[abcdefABCDEF.1234567890]+$/) && num.value.length>0)
+            {
+                return true;
+            }
+            else
+            {
+                alert('Invalid Input Number');
+                num.focus();
+                return false;
+            }
+
+        }
+        function valid_src_base(src)
+        {
+            if(src.value != 'default')
+            {
+                return true;
+            }
+            else
+            {
+                alert('Select Source Base');
+                src.focus();
+                return false;
+            }
+
+        }
+        function valid_dest_base(dest)
+        {
+            if(dest.value != 'default')
+            {
+                return true;
+            }
+            else
+            {
+                alert('Select Destination Base');
+                dest.focus();
+                return false;
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <form action="/success" onsubmit="return validate()" method="post" name="form1">
+      <center>
+        <h1>Base Converter</h1>
+        <p>Convert Number From Any Base To Any Base</p>
+    </center>  
+        <table>
+            <tr>
+                <label for="no"><th>Enter the number:  </th></label>
+                {% if s %}
+                <th> <input type="text" name="num" value="{{form[0]}}" id="no"> </th>
+                {% else %}
+                <th> <input type="text" name="num" value="" id="no"> </th>
+                {% endif %}
+            </tr>
+            <tr>
+                <label for="src_base"><th>Enter source (or From ) base :  </th></label>
+                <th> <select name="src" id="src_base">
+                    <option value="default" selected>(Select Source Base) </option>
+                    {% if s %}
+                        {% for i in range(2,17) %}
+                            {% if i != form[1] %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% else %}
+                            <option value="{{form[1]}}" selected>{{form[1]}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                    {% for i in range(2,17) %}
+                    <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                    {% endif %}
+                </select><br>
+                
+             </th>
+            </tr>
+            <tr>
+                <td colspan="2"><small>Note: Source Base is the base of the number currently you have entered</small></td>
+            </tr>
+            <tr>
+                <label for="dest_base"><th>Enter Destination (or To) base :  </th></label>
+                <th> <select name="dest" id="dest_base">
+                    <option value="default" selected>(Select Destination Base) </option>
+                    {% if s %}
+                        {% for i in range(2,17) %}
+                            {% if i != form[2] %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% else %}
+                            <option value="{{form[2]}}" selected>{{form[2]}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                    {% for i in range(2,17) %}
+                    <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                    {% endif %}
+                    
+                </select> </th>
+            </tr>
+            <tr>
+                <td colspan="2"><small>Note: Destination Base is the resultant base of the number that you want to convert into</small></td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" value="Convert">
+                    <button type="button" onclick="swap()">Swap Base</button>
+                    <button type="button" onclick="reset1()">Clear</button>
+                </th>
+            </tr>
+            {% if input %}
+            <tr>
+                <th colspan="2">{{input}}</th>
+            </tr>
+            {% endif %}
+            {% if result%}
+                <tr>
+                    <th colspan="2">{{result}}</th>
+                </tr>
+            {% endif %}
+        </table>
+    </form>
+</body>
+</html>
