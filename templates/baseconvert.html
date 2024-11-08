@@ -4,32 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
     <title>Base Converter</title>
-
     <script type="text/javascript">
-        function swap()
-        {
+        function swap() {
             var src1 = document.form1.src;
             var dest1 = document.form1.dest;
-            if(src1.value == 'default' || dest1.value == 'default')
-            {
-                alert('Could not Swap (From | To | Both values may be missing)')
-            }
-            else
-            {
+            if(src1.value == 'default' || dest1.value == 'default') {
+                alert('Could not Swap (From | To | Both values may be missing)');
+            } else {
                 var temp = src1.value;
                 src1.value = dest1.value;
                 dest1.value = temp;
             }
             return false;
         }
-        function reset1()
-        {
+        
+        function reset1() {
             var number = document.form1.num;
             var src1 = document.form1.src;
             var dest1 = document.form1.dest;
-            if(number.value != '')
-                number.value = '';
+            if(number.value!='')
+                number.value='';
             if(src1.value != 'default')
                 src1.value = 'default';
             if(dest1.value != 'default')
@@ -37,86 +33,69 @@
             return false;
         }
 
-        function validate()
-        {
+        function validate() {
             var number = document.form1.num;
             var src1 = document.form1.src;
             var dest1 = document.form1.dest;
-            if(valid_number(number))
-            {
-                if(valid_src_base(src1))
-                {
-                    if(valid_dest_base(dest1))
-                    {
+            if(valid_number(number)) {
+                if(valid_src_base(src1)) {
+                    if(valid_dest_base(dest1)) {
                         return true;
                     }
                 }
             }
             return false;
         }
-        function valid_number(num)
-        {
-            if(num.value.match(/^[abcdefABCDEF.1234567890]+$/) && num.value.length>0)
-            {
+        function valid_number(num) {
+            if(num.value.match(/^[abcdefABCDEF.1234567890]+$/) && num.value.length>0) {
                 return true;
-            }
-            else
-            {
+            } else {
                 alert('Invalid Input Number');
                 num.focus();
                 return false;
             }
-
         }
-        function valid_src_base(src)
-        {
-            if(src.value != 'default')
-            {
+        function valid_src_base(src) {
+            if(src.value != 'default') {
                 return true;
-            }
-            else
-            {
+            } else {
                 alert('Select Source Base');
                 src.focus();
                 return false;
             }
-
         }
-        function valid_dest_base(dest)
-        {
-            if(dest.value != 'default')
-            {
+        function valid_dest_base(dest) {
+            if(dest.value != 'default') {
                 return true;
-            }
-            else
-            {
+            } else {
                 alert('Select Destination Base');
                 dest.focus();
                 return false;
             }
-
         }
     </script>
 </head>
 <body>
-    <form action="/success" onsubmit="return validate()" method="post" name="form1">
-      <center>
-        <h1>Base Converter</h1>
-        <p>Convert Number From Any Base To Any Base</p>
-    </center>  
-        <table>
-            <tr>
-                <label for="no"><th>Enter the number:  </th></label>
+    <div class="container mt-5">
+        <form action="/success" onsubmit="return validate()" method="post" name="form1" class="form-group">
+            <div class="text-center">
+                <h1>Base Converter</h1>
+                <p>Convert Number From Any Base To Any Base</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="no">Enter the number</label>
                 {% if s %}
-                <th> <input type="text" name="num" value="{{form[0]}}" id="no"> </th>
+                <input type="text" name="num" value="{{form[0]}}" id="no" class="form-control">
                 {% else %}
-                <th> <input type="text" name="num" value="" id="no"> </th>
+                <input type="text" name="num" value="" id="no" class="form-control">
                 {% endif %}
-            </tr>
-            <tr>
-                <label for="src_base"><th>Enter source (or From ) base :  </th></label>
-                <th> <select name="src" id="src_base">
-                    <option value="default" selected>(Select Source Base) </option>
+            </div>
+
+            <div class="form-group">
+                <label for="src_base">Enter source (or From) base</label>
+                <select name="src" id="src_base" class="form-control">
+                    <option value="default" selected>(Select Source Base)</option>
                     {% if s %}
                         {% for i in range(2,17) %}
                             {% if i != form[1] %}
@@ -130,17 +109,14 @@
                     <option value="{{i}}">{{i}}</option>
                     {% endfor %}
                     {% endif %}
-                </select><br>
-                
-             </th>
-            </tr>
-            <tr>
-                <td colspan="2"><small>Note: Source Base is the base of the number currently you have entered</small></td>
-            </tr>
-            <tr>
-                <label for="dest_base"><th>Enter Destination (or To) base :  </th></label>
-                <th> <select name="dest" id="dest_base">
-                    <option value="default" selected>(Select Destination Base) </option>
+                </select>
+                <small class="form-text text-muted">Source Base is the base of the number currently entered.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="dest_base">Enter Destination (or To) base</label>
+                <select name="dest" id="dest_base" class="form-control">
+                    <option value="default" selected>(Select Destination Base)</option>
                     {% if s %}
                         {% for i in range(2,17) %}
                             {% if i != form[2] %}
@@ -154,40 +130,34 @@
                     <option value="{{i}}">{{i}}</option>
                     {% endfor %}
                     {% endif %}
-                    
-                </select> </th>
-            </tr>
-            <tr>
-                <td colspan="2"><small>Note: Destination Base is the resultant base of the number that you want to convert into</small></td>
-            </tr>
-            <tr class="special">
-                <th colspan="2">
-                    <input type="submit" value="Convert">
-                    <button type="button" onclick="swap()">Swap Base</button>
-                    <button type="button" onclick="reset1()">Clear</button>
-                </th>
-            </tr>
-            {% if input %}
-            <tr class="special">
-                <th colspan="2">{{input}}</th>
-            </tr>
-            {% endif %}
-            {% if result%}
-                <tr class="special">
-                    <th colspan="2">{{result}}</th>
-                </tr>
-            {% endif %}
-            <tr>
-                <th colspan="2" id="note">
-                    <br>
-                    <ol><b>Note: Simple Steps to convert given number from any base to any base </b>
-                        <li>Converting the given number into base 10</li>
-                        <li>Converting the number from base 10 to required base</li>
-                    </ol>
-                
-                </th>
-            </tr>
-        </table>
-    </form>
+                </select>
+                <small class="form-text text-muted">Destination Base is the resultant base of the number you want to convert to.</small>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Convert</button>
+                <button type="button" class="btn btn-warning" onclick="swap()">Swap Base</button>
+                <button type="button" class="btn btn-danger" onclick="reset1()">Clear</button>
+            </div>
+
+            <br>
+            <div class="form-group text-center" id="res">
+                {% if input %}
+                <div class="alert alert-info text-center">{{input}}</div>
+                {% endif %}
+                {% if result %}
+                <div class="alert alert-success text-center">{{result}}</div>
+                {% endif %}
+            </div>
+
+            <div class="alert alert-light mt-4" id="note">
+                <strong>Note: Simple Steps to convert given number from any base to any base</strong>
+                <ol>
+                    <li>Convert the given number into base 10.</li>
+                    <li>Convert the number from base 10 to the required base.</li>
+                </ol>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
