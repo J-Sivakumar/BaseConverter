@@ -1,79 +1,120 @@
- 
-form
-{
+
+/* Base styles (for larger screens) */
+form {
   font-size: 2vw;
   width: 70%;
   height: auto;
   background-color: azure;
-  margin-left:auto;
-  margin-right:auto;
-  color: black;
-} 
-table
-{
-  width: 100%;
-  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+  color: darkgreen;
 }
-td,th{
+
+table {
+  width: 100%;
+}
+
+td, th {
   width: 50%;
 }
-input[type=text]
-{
-  width:60% ;
+
+input[type=text] {
+  width: 60%;
   height: 30px;
   border: 2px solid black;
   background-color: lightyellow;
 }
-td
-{
+
+td {
   text-align: center;
 }
-select
-{
-  width:60% ;
+
+select {
+  width: 60%;
   height: 35px;
   background-color: lightyellow;
   border: 2px solid black;
-} 
-small
-{
+}
+
+small {
   font-size: 1.3vw;
   color: rgb(123, 9, 185);
 }
-input[type=submit], input[type=reset] , button
-{
+
+input[type=submit], input[type=reset], button {
   border-radius: 10px;
   width: 20%;
   height: 15%;
   font-size: 2vw;
-  color:rgb(245, 36, 13);
+  color: lightseagreen;
   padding: 5px;
   background-color: rgb(205, 249, 140);
 }
-h1
-{
+
+h1 {
   font-size: larger;
-  color:fuchsia;
-}
-p{
-  font-size: medium;
-  color:blue;
-}
-input[type=submit]:hover , input[type=reset]:hover , button:hover
-{
-    background-color: rgb(255, 202, 165);
-    color: darkviolet;
+  color: fuchsia;
 }
 
-#note
-{
-  color: rgb(6, 85, 160);
-  text-align:center;
-  padding-left:50px;
-  font-size: 0.8em;
-  list-style-position: inside;
+p {
+  font-size: medium;
+  color: blue;
 }
-.special
-{
-  text-align: center;
+
+input[type=submit]:hover, input[type=reset]:hover, button:hover {
+  background-color: rgb(255, 202, 165);
+  color: darkviolet;
 }
+
+/* Responsive adjustments */
+
+/* For medium screens (tablets and small laptops) */
+@media (max-width: 768px) {
+  form {
+    font-size: 2.5vw;
+    width: 80%;
+  }
+
+  input[type=submit], input[type=reset], button {
+    font-size: 3vw;
+    width: 30%;
+  }
+
+  small {
+    font-size: 1.5vw;
+  }
+
+  input[type=text], select {
+    width: 80%;
+  }
+}
+
+/* For small screens (mobile phones) */
+@media (max-width: 480px) {
+  form {
+    font-size: 3.5vw;
+    width: 90%;
+  }
+
+  input[type=submit], input[type=reset], button {
+    font-size: 4vw;
+    width: 40%;
+  }
+
+  small {
+    font-size: 2vw;
+  }
+
+  input[type=text], select {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
