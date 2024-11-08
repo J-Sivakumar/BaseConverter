@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "baseConverter.py",
+            "src": "index.py",
             "use": "@vercel/python"
         }
     ],
     "routes": [
         {
             "src": "(.*)",
-            "dest": "baseConverter.py"
+            "dest": "index.py"
         }
     ]
   }
